@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nothing Glyph Guild</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: #000;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, #1a1a1a 0%, #000 70%);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: #555;
+    text-transform: uppercase;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+    position: relative;
+    font-family: 'Arial Black', sans-serif;
+  }
+
+  .hero-title span {
+    color: #fff;
+    -webkit-text-stroke: 1px #fff;
+  }
+
+  .hero-title .outline {
+    -webkit-text-stroke: 1px #333;
+    color: transparent;
+  }
+
+  .glyph-glow {
+    font-size: 3rem;
+    margin: 2rem 0 1rem;
+    position: relative;
+    animation: pulse 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.6));
+  }
+
+  @keyframes pulse {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
+    50% { filter: drop-shadow(0 0 30px rgba(255,255,255,0.9)); }
+  }
+
+  .hero-sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: #444;
+    text-transform: uppercase;
+    position: relative;
+    margin-top: 1.5rem;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: #333;
+    animation: blink 2s ease infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* INTRO */
+  .intro {
+    padding: 6rem 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    border-top: 1px solid #111;
+  }
+
+  .intro h2 {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-family: 'Arial Black', sans-serif;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+  }
+
+  .intro p {
+    font-size: 0.8rem;
+    line-height: 1.9;
+    color: #666;
+    letter-spacing: 0.05em;
+  }
+
+  .intro .highlight {
+    color: #fff;
+    border-bottom: 1px solid #333;
+  }
+
+  /* METRO BOARD CONCEPT */
+  .metro-section {
+    padding: 4rem 1.5rem;
+    background: #050505;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+  }
+
+  .section-label {
+    text-align: center;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: #444;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+  }
+
+  .metro-board {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #0a0a0a;
+    border: 1px solid #1a1a1a;
+    padding: 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .metro-board::before {
+    content: 'METRO DIGITAL BOARD — CAMPAIGN MOCKUP';
+    position: absolute;
+    top: 0.8rem;
+    left: 1rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    color: #222;
+  }
+
+  .metro-headline {
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    font-family: 'Arial Black', sans-serif;
+    text-align: center;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .metro-sub {
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: #555;
+    margin-bottom: 3rem;
+  }
+
+  .guild-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: #111;
+  }
+
+  @media (min-width: 600px) {
+    .guild-row { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .guild-cell {
+    background: #000;
+    padding: 2rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .guild-cell:hover {
+    background: #0d0d0d;
+  }
+
+  .guild-cell:hover .g-symbol {
+    filter: drop-shadow(0 0 15px rgba(255,255,255,0.7));
+    transform: scale(1.1);
+  }
+
+  .g-symbol {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+    filter: drop-shadow(0 0 6px rgba(255,255,255,0.2));
+  }
+
+  .g-name {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .g-mindset {
+    font-size: 0.7rem;
+    font-family: 'Arial Black', sans-serif;
+    color: #ccc;
+    line-height: 1.2;
+  }
+
+  .g-essence {
+    font-size: 0.55rem;
+    color: #333;
+    margin-top: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .metro-cta {
+    text-align: center;
+    margin-top: 2.5rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: #333;
+    text-transform: uppercase;
+  }
+
+  .metro-cta span {
+    color: #fff;
+    border-bottom: 1px solid #444;
+  }
+
+  /* GUILD CARDS */
+  .guilds-section {
+    padding: 6rem 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .guild-card {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 2rem;
+    padding: 3rem 0;
+    border-bottom: 1px solid #0f0f0f;
+    align-items: start;
+    transition: all 0.3s;
+  }
+
+  .guild-card:hover .card-symbol {
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.5));
+  }
+
+  .card-symbol {
+    font-size: 4rem;
+    text-align: center;
+    filter: drop-shadow(0 0 8px rgba(255,255,255,0.15));
+    transition: all 0.4s;
+    padding-top: 0.5rem;
+  }
+
+  .card-number {
+    font-size: 0.5rem;
+    letter-spacing: 0.4em;
+    color: #222;
+    margin-bottom: 0.8rem;
+  }
+
+  .card-title {
+    font-family: 'Arial Black', sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.3rem;
+    line-height: 1;
+  }
+
+  .card-tagline {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: #555;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+
+  .card-desc {
+    font-size: 0.78rem;
+    line-height: 1.9;
+    color: #555;
+    max-width: 500px;
+  }
+
+  .card-desc strong {
+    color: #aaa;
+    font-weight: normal;
+  }
+
+  .card-tags {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    color: #333;
+    border: 1px solid #1a1a1a;
+    padding: 0.3rem 0.6rem;
+    text-transform: uppercase;
+  }
+
+  /* DHARMA SECTION */
+  .dharma-section {
+    padding: 6rem 2rem;
+    background: #030303;
+    border-top: 1px solid #0a0a0a;
+    text-align: center;
+  }
+
+  .dharma-symbol {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+    display: block;
+    animation: spin 20s linear infinite;
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .dharma-title {
+    font-family: 'Arial Black', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .dharma-sub {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    color: #444;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .dharma-desc {
+    font-size: 0.8rem;
+    line-height: 2;
+    color: #555;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .dharma-desc em {
+    color: #888;
+    font-style: normal;
+    border-bottom: 1px solid #222;
+  }
+
+  /* PHONE GLOW SECTION */
+  .phone-section {
+    padding: 6rem 2rem;
+    text-align: center;
+    border-top: 1px solid #0f0f0f;
+  }
+
+  .phone-mock {
+    width: 140px;
+    height: 280px;
+    border: 1px solid #222;
+    border-radius: 20px;
+    margin: 0 auto 3rem;
+    position: relative;
+    background: #050505;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .phone-mock::after {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.04) 0%, transparent 70%);
+    animation: phoneglow 3s ease-in-out infinite;
+  }
+
+  @keyframes phoneglow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  .phone-glyph-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .glyph-line {
+    height: 1px;
+    background: #fff;
+    border-radius: 1px;
+    animation: glyphlight 2s ease-in-out infinite;
+    box-shadow: 0 0 4px #fff, 0 0 8px rgba(255,255,255,0.5);
+  }
+
+  .glyph-line:nth-child(1) { width: 60px; animation-delay: 0s; }
+  .glyph-line:nth-child(2) { width: 40px; animation-delay: 0.3s; }
+  .glyph-line:nth-child(3) { width: 70px; animation-delay: 0.6s; }
+  .glyph-line:nth-child(4) { width: 30px; animation-delay: 0.9s; }
+  .glyph-line:nth-child(5) { width: 50px; animation-delay: 1.2s; }
+
+  @keyframes glyphlight {
+    0%, 100% { opacity: 0.2; box-shadow: 0 0 2px #fff; }
+    50% { opacity: 1; box-shadow: 0 0 8px #fff, 0 0 16px rgba(255,255,255,0.4); }
+  }
+
+  .phone-section h2 {
+    font-family: 'Arial Black', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+  }
+
+  .phone-section p {
+    font-size: 0.75rem;
+    color: #555;
+    line-height: 2;
+    max-width: 480px;
+    margin: 0 auto;
+    letter-spacing: 0.05em;
+  }
+
+  /* CAMPAIGN MECHANICS */
+  .mechanics {
+    padding: 6rem 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+    border-top: 1px solid #0a0a0a;
+  }
+
+  .mech-title {
+    font-family: 'Arial Black', sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    margin-bottom: 3rem;
+    letter-spacing: -0.01em;
+  }
+
+  .mech-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+
+  .mech-num {
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    color: #222;
+    padding-top: 0.2rem;
+  }
+
+  .mech-content h3 {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .mech-content p {
+    font-size: 0.75rem;
+    color: #444;
+    line-height: 1.9;
+  }
+
+  .mech-content p strong {
+    color: #777;
+    font-weight: normal;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid #0a0a0a;
+  }
+
+  footer p {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: #222;
+    text-transform: uppercase;
+  }
+
+  footer span { color: #444; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Nothing Phone — Glyph Guild Campaign</p>
+  <h1 class="hero-title">
+    <span>YOUR GLYPH</span><br>
+    <span class="outline">KNOWS</span><br>
+    <span>WHO YOU ARE</span>
+  </h1>
+  <div class="glyph-glow">⎔</div>
+  <p class="hero-sub">If you know, you know.</p>
+  <p class="scroll-hint">↓ scroll</p>
+</section>
+
+<!-- INTRO -->
+<section class="intro">
+  <h2>You're not showing off.<br>You're broadcasting.</h2>
+  <p>
+    The glyph matrix on your Nothing phone isn't a notification light.
+    It's a <span class="highlight">language</span>. A quiet signal to the right people
+    that you think differently about what you make, how you make it,
+    and why it matters. <br><br>
+    This campaign is not for everyone.
+    It's for the ones who already know that <span class="highlight">how you build
+    is who you are</span> — and that a single geometric symbol
+    can say more than a thousand Instagram handles.
+  </p>
+</section>
+
+<!-- METRO BOARD MOCKUP -->
+<section class="metro-section">
+  <p class="section-label">Metro Digital Board — Campaign Visual</p>
+  <div class="metro-board">
+    <h2 class="metro-headline">WHICH GUILD<br>ARE YOU?</h2>
+    <p class="metro-sub">Find your glyph. Wear it on your phone.</p>
+    <div class="guild-row">
+      <div class="guild-cell">
+        <span class="g-symbol">⚒</span>
+        <p class="g-name">The Anvil</p>
+        <p class="g-mindset">Creation<br>through Impact</p>
+        <p class="g-essence">You forge.</p>
+      </div>
+      <div class="guild-cell">
+        <span class="g-symbol">🏛</span>
+        <p class="g-name">The Pillar</p>
+        <p class="g-mindset">Creation<br>through Order</p>
+        <p class="g-essence">You build.</p>
+      </div>
+      <div class="guild-cell">
+        <span class="g-symbol">Δ</span>
+        <p class="g-name">The Delta</p>
+        <p class="g-mindset">Creation<br>through Logic</p>
+        <p class="g-essence">You transform.</p>
+      </div>
+      <div class="guild-cell">
+        <span class="g-symbol">⎔</span>
+        <p class="g-name">The Zenith</p>
+        <p class="g-mindset">Creation<br>through Refinement</p>
+        <p class="g-essence">You distil.</p>
+      </div>
+    </div>
+    <p class="metro-cta">Your glyph matrix tells the story — <span>nothing.tech/guild</span></p>
+  </div>
+</section>
+
+<!-- GUILD DETAIL CARDS -->
+<section class="guilds-section">
+  <p class="section-label">The Four Guilds — Expanded</p>
+
+  <div class="guild-card">
+    <div class="card-symbol">⚒</div>
+    <div>
+      <p class="card-number">GUILD 01</p>
+      <h2 class="card-title">THE ANVIL</h2>
+      <p class="card-tagline">Creation through Impact</p>
+      <p class="card-desc">
+        You don't theorise. You <strong>strike</strong>. The Anvil guild are the ones building the bones —
+        infrastructure, hardware, physical systems. Raw grit is not a flaw in your process,
+        it is the process. You come from the forge. You leave <strong>durable things</strong> behind.
+        Your glyph pattern is heavy. Grounded. Asymmetric like a hammer's swing.
+      </p>
+      <div class="card-tags">
+        <span class="tag">Hardware</span>
+        <span class="tag">Infrastructure</span>
+        <span class="tag">Manufacturing</span>
+        <span class="tag">Physical Making</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="guild-card">
+    <div class="card-symbol">🏛</div>
+    <div>
+      <p class="card-number">GUILD 02</p>
+      <h2 class="card-title">THE PILLAR</h2>
+      <p class="card-tagline">Creation through Order</p>
+      <p class="card-desc">
+        You build for <strong>permanence</strong>. Systems that outlast their makers.
+        The Pillar guild thinks in empires — not products. Your stack is your architecture.
+        You design for scale before anyone asks for it. Vertical. Symmetrical. <strong>Unshakeable.</strong>
+        Your glyph is columnar. Rhythmic. Repeated like load-bearing structure.
+      </p>
+      <div class="card-tags">
+        <span class="tag">Tech Architecture</span>
+        <span class="tag">Systems Design</span>
+        <span class="tag">Engineering</span>
+        <span class="tag">Urban Planning</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="guild-card">
+    <div class="card-symbol">Δ</div>
+    <div>
+      <p class="card-number">GUILD 03</p>
+      <h2 class="card-title">THE DELTA</h2>
+      <p class="card-tagline">Creation through Logic</p>
+      <p class="card-desc">
+        You are the change. Delta — the mathematical symbol for transformation —
+        is your native language. The Delta guild builds <strong>new theory</strong>.
+        Deep tech. First principles thinking. You don't improve things,
+        you <strong>reframe</strong> the problem entirely. Directional. Geometric. Pointing forward always.
+      </p>
+      <div class="card-tags">
+        <span class="tag">Deep Tech</span>
+        <span class="tag">Research</span>
+        <span class="tag">AI / ML</span>
+        <span class="tag">First Principles</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="guild-card">
+    <div class="card-symbol">⎔</div>
+    <div>
+      <p class="card-number">GUILD 04</p>
+      <h2 class="card-title">THE ZENITH</h2>
+      <p class="card-tagline">Creation through Refinement</p>
+      <p class="card-desc">
+        You distil. The hexagonal form — found in Islamic geometric tiling,
+        in honeycombs, in carbon structures — is the <strong>most efficient shape</strong>
+        in nature. The Zenith guild builds <strong>elixirs</strong>: software so refined,
+        processes so precise, that every decimal matters. Interlocking. Scaleless. Perfect tessellation
+        of logic and beauty.
+      </p>
+      <div class="card-tags">
+        <span class="tag">Product Design</span>
+        <span class="tag">High-value Software</span>
+        <span class="tag">Precision Systems</span>
+        <span class="tag">UX</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DHARMA -->
+<section class="dharma-section">
+  <span class="dharma-symbol">☸</span>
+  <h2 class="dharma-title">THE DHARMA / SADHANA</h2>
+  <p class="dharma-sub">The Fifth Guild — The Unclassified</p>
+  <p class="dharma-desc">
+    Not everyone who makes belongs to a single guild.
+    Some are called to <em>practice</em> itself — the daily discipline of showing up,
+    building without attachment to outcome, creating as a <em>spiritual act</em>.
+    <br><br>
+    The Dharma guild is not a category. It's a <em>way of moving</em>.
+    The wheel — perpetual, returning, self-renewing — is their glyph
+    because they are not building toward a destination.
+    They are building because <em>building is their nature</em>.
+    <br><br>
+    This is the guild of the <em>long practitioner</em>. The one who was making
+    before there was a name for it. The one still making after everyone else has moved on.
+  </p>
+</section>
+
+<!-- PHONE GLOW -->
+<section class="phone-section">
+  <div class="phone-mock">
+    <div class="phone-glyph-lines">
+      <div class="glyph-line"></div>
+      <div class="glyph-line"></div>
+      <div class="glyph-line"></div>
+      <div class="glyph-line"></div>
+      <div class="glyph-line"></div>
+    </div>
+  </div>
+  <h2>The glow finds its own.</h2>
+  <p>
+    You don't explain it. You don't post it.
+    The glyph matrix on the back of your phone pulses with your guild pattern
+    in your pocket, on the table, across the room.
+    The right person sees it and already knows.
+    That's the whole point.
+  </p>
+</section>
+
+<!-- CAMPAIGN MECHANICS -->
+<section class="mechanics">
+  <h2 class="mech-title">How the campaign runs.</h2>
+
+  <div class="mech-item">
+    <p class="mech-num">01 —</p>
+    <div class="mech-content">
+      <h3>Metro Boards</h3>
+      <p>
+        City-wide digital OOH in metro stations. Single glyph. Single line.
+        <strong>"Which guild are you?"</strong> No brand name visible until 3 seconds in.
+        The ambiguity is the hook. People Google it before they reach the platform.
+      </p>
+    </div>
+  </div>
+
+  <div class="mech-item">
+    <p class="mech-num">02 —</p>
+    <div class="mech-content">
+      <h3>Guild Identifier — nothing.tech/guild</h3>
+      <p>
+        Short interactive quiz. Five questions about how you make, not what you make.
+        Outputs your guild, your glyph pattern, and a <strong>downloadable Nothing glyph configuration</strong>
+        for your phone. The community starts recognising each other's patterns in the wild.
+      </p>
+    </div>
+  </div>
+
+  <div class="mech-item">
+    <p class="mech-num">03 —</p>
+    <div class="mech-content">
+      <h3>The Glyph as Signal, not Badge</h3>
+      <p>
+        No hashtag. No handle. No campaign branding on the phone itself.
+        The glyph glows. <strong>That's it.</strong> People in the know, know.
+        The campaign deliberately refuses to over-explain — which is itself the statement.
+      </p>
+    </div>
+  </div>
+
+  <div class="mech-item">
+    <p class="mech-num">04 —</p>
+    <div class="mech-content">
+      <h3>Community Layer</h3>
+      <p>
+        Nothing forums and Discord segmented by guild. Not by profession —
+        by <strong>how you think about making.</strong>
+        An Anvil engineer and an Anvil ceramicist belong in the same room.
+        The glyph is the shared language across industries.
+      </p>
+    </div>
+  </div>
+
+  <div class="mech-item">
+    <p class="mech-num">05 —</p>
+    <div class="mech-content">
+      <h3>The Dharma Wild Card</h3>
+      <p>
+        The fifth guild isn't on the metro board. It's not in the quiz.
+        You find out about it only if you go deep enough into the community.
+        <strong>It cannot be assigned. It can only be recognised.</strong>
+        The Dharma guild is the campaign's open secret.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Nothing Glyph Guild — Campaign Concept &nbsp;|&nbsp; <span>"If you know, you know."</span></p>
+</footer>
+
+</body>
+</html>
